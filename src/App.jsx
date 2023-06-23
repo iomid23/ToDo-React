@@ -1,14 +1,15 @@
 import ToDoForm from "./components/ToDoForm";
+import ToDoListing from "./components/ToDoListing";
 
 function App() {
-
   return (
     <>
-      <div class="bg-gray-100">
+      <div className="bg-gray-100">
         <ToDoForm />
+        <ToDoListing />
       </div>
     </>
-  )
+  );
 }
 
-export default App
+export default App;
