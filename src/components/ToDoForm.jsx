@@ -1,7 +1,7 @@
 import { useState } from "react";
 import ToDoListing from "./ToDoListing";
 
-const ToDoForm = (props) => {
+const ToDoForm = () => {
   const [toDo, setToDo] = useState("");
 
   const addToDo = (event) => {

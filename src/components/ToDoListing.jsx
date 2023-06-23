@@ -1,9 +1,10 @@
 import React from "react";
+import ToDoForm from "./ToDoForm";
 
-const ToDoListing = (toDo) => {
+const ToDoListing = () => {
   return (
     <>
-      <li>{toDo}</li>
+      <ToDoForm />
     </>
   );
 };
