@@ -2,25 +2,38 @@ import { useState } from "react";
 import ToDoListing from "./ToDoListing";
 
 const ToDoForm = () => {
-  const [toDo, setToDo] = useState("");
+  const [toDos, setToDos] = useState([]);
+  const [input, setInput] = useState("");
 
-  const addToDo = (event) => {
+  const addToDos = (event) => {
     event.preventDefault();
+    setToDos([...toDos, { id: crypto.randomUUID(), name: input }]);
+    setInput("");
   };
 
-  const changeHandler = (event) => {
-    console.log(event.target.value);
-    setToDo(event.target.value);
+  const editHandler = (event) => {
+    setToDos(
+      toDos.map((toDo) => {
+        if (toDo.id === event.id) {
+          return event;
+        } else {
+          return toDos;
+        }
+      })
+    );
   };
+
+  const deleteHandler = () => {};
 
   return (
     <>
-      <form className="flex mt-4" onSubmit={addToDo}>
+      <form className="flex mt-4" onSubmit={addToDos}>
         <input
           type="text"
           placeholder="Enter your task here"
           className="shadow appearance-none border-teal rounded w-72 py-2 px-3 mr-4 text-grey-darker"
-          onChange={changeHandler}
+          value={input}
+          onChange={(e) => setInput(e.target.value)}
         />
         <button
           type="submit"
@@ -30,7 +43,22 @@ const ToDoForm = () => {
         </button>
       </form>
       <ul>
-        <ToDoListing value={toDo} />
+        {toDos.map((toDo) => (
+          <div className="flex justify-between w-1/4">
+            <li key={toDo.id}>{toDo.name}</li>
+            <div>
+              <span className="px-2 text-purple-500" onChange={editHandler}>
+                <i class="fa-solid fa-pen-to-square"></i>
+              </span>
+              <span className="px-2 text-green-500">
+                <i class="fa-solid fa-square-check"></i>
+              </span>
+              <span className="px-2 text-red-500" onDelete={deleteHandler}>
+                <i class="fa-solid fa-trash"></i>
+              </span>
+            </div>
+          </div>
+        ))}
       </ul>
     </>
   );

@@ -6,7 +6,6 @@ function App() {
     <>
       <div className="bg-gray-100">
         <ToDoForm />
-        <ToDoListing />
       </div>
     </>
   );

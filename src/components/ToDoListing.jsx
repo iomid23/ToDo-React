@@ -1,11 +1,13 @@
 import React from "react";
 import ToDoForm from "./ToDoForm";
 
-const ToDoListing = () => {
+const ToDoListing = ({ toDos }) => {
   return (
-    <>
-      <ToDoForm />
-    </>
+    <ul>
+      {toDos.map((toDo) => (
+        <li key={toDo.id}>{toDo.name}</li>
+      ))}
+    </ul>
   );
 };
 
