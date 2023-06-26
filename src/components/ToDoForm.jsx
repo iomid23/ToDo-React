@@ -1,6 +1,5 @@
 import React from "react";
 import { useState } from "react";
-import ToDoListing from "./ToDoListing";
 
 const ToDoForm = () => {
   const [toDos, setToDos] = useState([]);
@@ -32,13 +31,32 @@ const ToDoForm = () => {
           <i className="fa-solid fa-plus p-2"></i>
         </button>
       </form>
-      {toDos.map((toDo) => (
-        <ToDoListing
-          toDo={toDo.name}
-          key={toDo.id}
-          isCompleted={toDo.isCompleted}
-        />
-      ))}
+      <ul className="text-md p-2 font-sans">
+        {toDos.map((toDo) => (
+          <div className="flex w-1/4 justify-between">
+            {ToDo.isCompleted ? (
+              <li>
+                <s></s>
+                {toDo.name}
+                <s></s>
+              </li>
+            ) : (
+              <li>{toDo.name}</li>
+            )}
+            <div>
+              <span className="cursor-pointer px-2 text-purple-500">
+                <i class="fa-solid fa-pen-to-square"></i>
+              </span>
+              <span className="cursor-pointer px-2 text-green-500">
+                <i class="fa-solid fa-square-check"></i>
+              </span>
+              <span className="cursor-pointer px-2 text-red-500">
+                <i class="fa-solid fa-trash"></i>
+              </span>
+            </div>
+          </div>
+        ))}
+      </ul>
     </>
   );
 };
