@@ -3,7 +3,7 @@ import ToDoForm from "./components/ToDoForm";
 function App() {
   return (
     <>
-      <div className="bg-purple-100">
+      <div>
         <ToDoForm />
       </div>
     </>

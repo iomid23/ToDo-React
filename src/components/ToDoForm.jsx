@@ -42,6 +42,9 @@ const ToDoForm = () => {
   return (
     <>
       <div className="p-4">
+        <h1 className="mt-4 flex justify-center pt-4 text-white text-2xl font-mono">
+          Get your Tasks done
+        </h1>
         <form className="mt-4 flex justify-center pt-4" onSubmit={addToDo}>
           <input
             type="text"
@@ -52,7 +55,7 @@ const ToDoForm = () => {
           />
           <button
             type="submit"
-            className="flex-no-shrink text-teal border-teal rounded border-2 bg-gray-500 p-2 hover:bg-purple-500 hover:text-white"
+            className="flex-no-shrink text-teal border-teal rounded border-2 bg-gray-100 p-2 hover:bg-purple-500 hover:text-white"
           >
             <i className="fa-solid fa-plus p-2"></i>
           </button>
@@ -61,7 +64,12 @@ const ToDoForm = () => {
           {toDos.map((toDo) => (
             <div
               key={toDo.id}
-              className="m-1 flex items-center justify-between rounded-sm bg-purple-50 p-4"
+              className={
+                toDo.isCompleted
+                  ? "m-1 flex items-center justify-between rounded-sm bg-emerald-200 p-4 shadow-lg"
+                  : "m-1 flex items-center justify-between rounded-sm bg-purple-50 p-4 shadow-lg"
+              }
+              // className="m-1 flex items-center justify-between rounded-sm bg-purple-50 p-4"
             >
               <input
                 className="bg-purple-50"
@@ -73,9 +81,7 @@ const ToDoForm = () => {
                 <span
                   className="cursor-pointer px-2 text-purple-500"
                   onClick={() => handleEdit(toDo.id)}
-                >
-                  <i className="fa-solid fa-pen-to-square"></i>
-                </span>
+                ></span>
                 <span
                   className="cursor-pointer px-2 text-green-500"
                   onClick={() => handleComplete(toDo.id)}
