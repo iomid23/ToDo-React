@@ -1,11 +1,10 @@
-import React from "react";
-import { useState } from "react";
+import React, { useState } from "react";
 
 const ToDoForm = () => {
   const [toDos, setToDos] = useState([]);
   const [input, setInput] = useState("");
 
-  const addToDos = (event) => {
+  const addToDo = (event) => {
     event.preventDefault();
     setToDos([
       ...toDos,
@@ -14,9 +13,35 @@ const ToDoForm = () => {
     setInput("");
   };
 
+  const handleEdit = (id, event) => {
+    const updatedToDos = toDos.map((toDo) => {
+      if (toDo.id === id) {
+        return { ...toDo, name: event.target.value };
+      }
+      return toDo;
+    });
+    setToDos(updatedToDos);
+  };
+
+  const handleComplete = (id) => {
+    const updatedToDos = toDos.map((toDo) => {
+      if (toDo.id === id) {
+        return { ...toDo, isCompleted: !toDo.isCompleted };
+      }
+      return toDo;
+    });
+
+    setToDos(updatedToDos);
+  };
+
+  const handleDelete = (id) => {
+    const filteredToDos = toDos.filter((toDo) => toDo.id !== id);
+    setToDos(filteredToDos);
+  };
+
   return (
     <>
-      <form className="mt-4 flex justify-center pt-4" onSubmit={addToDos}>
+      <form className="mt-4 flex justify-center pt-4" onSubmit={addToDo}>
         <input
           type="text"
           placeholder="Enter your task here"
@@ -31,27 +56,35 @@ const ToDoForm = () => {
           <i className="fa-solid fa-plus p-2"></i>
         </button>
       </form>
-      <ul className="text-md p-2 font-sans">
+      <ul className="text-md m-4 flex flex-col items-center justify-center p-2 font-sans">
         {toDos.map((toDo) => (
-          <div className="flex w-1/4 justify-between">
-            {ToDo.isCompleted ? (
-              <li>
-                <s></s>
-                {toDo.name}
-                <s></s>
-              </li>
-            ) : (
-              <li>{toDo.name}</li>
-            )}
+          <div
+            key={toDo.id}
+            className="m-1 flex w-96 justify-between rounded-md bg-purple-50 p-4"
+          >
+            <input
+              type="text"
+              value={toDo.name}
+              onChange={(e) => handleEdit(toDo.id, e)} // Corrected handler name
+            />
             <div>
-              <span className="cursor-pointer px-2 text-purple-500">
-                <i class="fa-solid fa-pen-to-square"></i>
+              <span
+                className="cursor-pointer px-2 text-purple-500"
+                onClick={() => handleEdit(toDo.id)}
+              >
+                <i className="fa-solid fa-pen-to-square"></i>
               </span>
-              <span className="cursor-pointer px-2 text-green-500">
-                <i class="fa-solid fa-square-check"></i>
+              <span
+                className="cursor-pointer px-2 text-green-500"
+                onClick={() => handleComplete(toDo.id)}
+              >
+                <i className="fa-solid fa-square-check"></i>
               </span>
-              <span className="cursor-pointer px-2 text-red-500">
-                <i class="fa-solid fa-trash"></i>
+              <span
+                className="cursor-pointer px-2 text-red-500"
+                onClick={() => handleDelete(toDo.id)}
+              >
+                <i className="fa-solid fa-trash"></i>
               </span>
             </div>
           </div>
