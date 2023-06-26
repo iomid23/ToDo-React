@@ -8,7 +8,10 @@ const ToDoForm = () => {
 
   const addToDos = (event) => {
     event.preventDefault();
-    setToDos([...toDos, { id: crypto.randomUUID(), name: input }]);
+    setToDos([
+      ...toDos,
+      { id: crypto.randomUUID(), name: input, isCompleted: false },
+    ]);
     setInput("");
   };
 
@@ -29,7 +32,13 @@ const ToDoForm = () => {
           <i className="fa-solid fa-plus p-2"></i>
         </button>
       </form>
-      <ToDoListing toDos={toDos} />
+      {toDos.map((toDo) => (
+        <ToDoListing
+          toDo={toDo.name}
+          key={toDo.id}
+          isCompleted={toDo.isCompleted}
+        />
+      ))}
     </>
   );
 };
