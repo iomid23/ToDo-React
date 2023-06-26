@@ -1,5 +1,5 @@
+import React from "react";
 import { useState } from "react";
-import ToDoListing from "./ToDoListing";
 
 const ToDoForm = () => {
   const [toDos, setToDos] = useState([]);
@@ -10,20 +10,6 @@ const ToDoForm = () => {
     setToDos([...toDos, { id: crypto.randomUUID(), name: input }]);
     setInput("");
   };
-
-  const editHandler = (event) => {
-    setToDos(
-      toDos.map((toDo) => {
-        if (toDo.id === event.id) {
-          return event;
-        } else {
-          return toDos;
-        }
-      })
-    );
-  };
-
-  const deleteHandler = () => {};
 
   return (
     <>
@@ -47,13 +33,13 @@ const ToDoForm = () => {
           <div className="flex justify-between w-1/4">
             <li key={toDo.id}>{toDo.name}</li>
             <div>
-              <span className="px-2 text-purple-500" onChange={editHandler}>
+              <span className="px-2 text-purple-500">
                 <i class="fa-solid fa-pen-to-square"></i>
               </span>
               <span className="px-2 text-green-500">
                 <i class="fa-solid fa-square-check"></i>
               </span>
-              <span className="px-2 text-red-500" onDelete={deleteHandler}>
+              <span className="px-2 text-red-500">
                 <i class="fa-solid fa-trash"></i>
               </span>
             </div>
