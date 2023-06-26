@@ -1,33 +1,42 @@
 import React from "react";
 import { useState } from "react";
 import ToDoForm from "./ToDoForm";
+import { useState } from "react";
 
 const ToDoListing = ({ toDos }) => {
   const editHandler = (event) => {
     setToDos(
       toDos.map((toDo) => {
-        if (ToDoForm.id === event.id) {
+        if (toDo.id === event.id) {
           return event;
         } else {
-          return ToDos;
+          return toDos;
         }
       })
     );
   };
 
+  const deleteHandler = () => {};
+
   return (
-    <ul>
-      {toDos.map((toDos, index) => (
-        <div className="flex justify-between w-1/4">
+    <ul className="text-md p-2 font-sans">
+      {toDos.map((toDo, index) => (
+        <div className="flex w-1/4 justify-between">
           <li key={toDo.id}>{toDo.name}</li>
           <div>
-            <span className="px-2 text-purple-500" onChange={editHandler}>
+            <span
+              className="cursor-pointer px-2 text-purple-500"
+              onChange={editHandler}
+            >
               <i class="fa-solid fa-pen-to-square"></i>
             </span>
-            <span className="px-2 text-green-500">
+            <span className="cursor-pointer px-2 text-green-500">
               <i class="fa-solid fa-square-check"></i>
             </span>
-            <span className="px-2 text-red-500" onDelete={deleteHandler}>
+            <span
+              className="cursor-pointer px-2 text-red-500"
+              onDelete={deleteHandler}
+            >
               <i class="fa-solid fa-trash"></i>
             </span>
           </div>
