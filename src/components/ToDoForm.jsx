@@ -65,7 +65,7 @@ const ToDoForm = () => {
             <input
               type="text"
               value={toDo.name}
-              onChange={(e) => editHandler(e, toDo.id)}
+              onChange={(e) => handleEdit(toDo.id, e)} // Corrected handler name
             />
             <div>
               <span
