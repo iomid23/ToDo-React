@@ -18,7 +18,7 @@ const ToDoListing = ({ toDos }) => {
   const deleteHandler = () => {};
 
   return (
-    <ul>
+    <ul className="text-md p-2 font-sans">
       {toDos.map((toDo, index) => (
         <div className="flex w-1/4 justify-between">
           <li key={toDo.id}>{toDo.name}</li>

@@ -13,7 +13,7 @@ const ToDoForm = () => {
 
   return (
     <>
-      <form className="mt-4 flex" onSubmit={addToDos}>
+      <form className="mt-4 flex justify-center pt-4" onSubmit={addToDos}>
         <input
           type="text"
           placeholder="Enter your task here"
