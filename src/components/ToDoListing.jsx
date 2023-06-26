@@ -3,9 +3,21 @@ import { useState } from "react";
 import ToDoForm from "./ToDoForm";
 
 const ToDoListing = ({ toDos }) => {
+  const editHandler = (event) => {
+    setToDos(
+      toDos.map((toDo) => {
+        if (ToDoForm.id === event.id) {
+          return event;
+        } else {
+          return ToDos;
+        }
+      })
+    );
+  };
+
   return (
     <ul>
-      {toDos.map((toDo) => (
+      {toDos.map((toDos, index) => (
         <div className="flex justify-between w-1/4">
           <li key={toDo.id}>{toDo.name}</li>
           <div>
