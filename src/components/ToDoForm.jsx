@@ -1,15 +1,27 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { v4 as uuidv4 } from "uuid";
 
 const ToDoForm = () => {
   const [toDos, setToDos] = useState([]);
   const [input, setInput] = useState("");
 
+  useEffect(() => {
+    const storedToDos = localStorage.getItem("toDos");
+    if (storedToDos) {
+      setToDos(JSON.parse(storedToDos));
+    }
+  }, []);
+
+  const updateLocalStorage = (updatedToDos) => {
+    localStorage.setItem("toDos", JSON.stringify(updatedToDos));
+  };
+
   const addToDo = (event) => {
     event.preventDefault();
-    setToDos([
-      ...toDos,
-      { id: crypto.randomUUID(), name: input, isCompleted: false },
-    ]);
+    const newToDo = { id: uuidv4(), name: input, isCompleted: false };
+    const updatedToDos = [...toDos, newToDo];
+    setToDos(updatedToDos);
+    updateLocalStorage(updatedToDos);
     setInput("");
   };
 
@@ -21,6 +33,7 @@ const ToDoForm = () => {
       return toDo;
     });
     setToDos(updatedToDos);
+    updateLocalStorage(updatedToDos);
   };
 
   const handleComplete = (id) => {
@@ -30,13 +43,14 @@ const ToDoForm = () => {
       }
       return toDo;
     });
-
     setToDos(updatedToDos);
+    updateLocalStorage(updatedToDos);
   };
 
   const handleDelete = (id) => {
     const filteredToDos = toDos.filter((toDo) => toDo.id !== id);
     setToDos(filteredToDos);
+    updateLocalStorage(filteredToDos);
   };
 
   return (
@@ -69,13 +83,12 @@ const ToDoForm = () => {
                   ? "m-1 flex items-center justify-between rounded-sm bg-emerald-200 p-4 shadow-lg"
                   : "m-1 flex items-center justify-between rounded-sm bg-purple-50 p-4 shadow-lg"
               }
-              // className="m-1 flex items-center justify-between rounded-sm bg-purple-50 p-4"
             >
               <input
                 className="bg-purple-50"
                 type="text"
                 value={toDo.name}
-                onChange={(e) => handleEdit(toDo.id, e)} // Corrected handler name
+                onChange={(e) => handleEdit(toDo.id, e)}
               />
               <div>
                 <span
